@@ -1,0 +1,12 @@
+# Frontend
+node_modules/
+dist/
+.env
+.env.local
+
+# Backend
+bin/
+obj/
+*.user
+appsettings.Development.json
+wwwroot/uploads/

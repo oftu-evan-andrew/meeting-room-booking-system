@@ -1,0 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+namespace SyncRoom.Api.Data;
+
+public static class DataExtensions
+{
+    public static IServiceCollection AddDataServices(this IServiceCollection services, 
+    IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+        services.AddDbContext<SyncRoomContext>(options => 
+            options.UseSqlServer(connectionString));
+    
+        return services; 
+    }
+}
