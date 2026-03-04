@@ -22,7 +22,7 @@ namespace SyncRoom.Api.Controllers
            
             if (room is null) return NotFound("The requested room does not exist.");
 
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue("sub");
 
             bool isOverlapping = await context.Bookings.AnyAsync(b => 
                 b.RoomId == createBookingDto.RoomId && 
@@ -49,7 +49,7 @@ namespace SyncRoom.Api.Controllers
             context.Bookings.Add(newBooking);
             await context.SaveChangesAsync();
 
-            return Ok();
+            return Ok(new {Message = "Created a new booking successfully!"});
         }
         [Authorize]
         [HttpDelete("{id}")]

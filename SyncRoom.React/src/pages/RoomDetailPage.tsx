@@ -52,7 +52,10 @@ export function RoomDetailPage({ room, loading, error, bookingLoading, onBook }:
   }
 
   const amenities = parseAmenities(room.amenities);
-
+  const bookingsCount = room.bookingId?.length ?? [];
+  
+  console.log(room);
+  console.log("Keys on room object:", Object.keys(room));
   return (
     <motion.div
       initial={{ opacity: 0, y: 12 }}
@@ -97,8 +100,8 @@ export function RoomDetailPage({ room, loading, error, bookingLoading, onBook }:
             )}
 
             <div className="mt-5 flex items-center gap-2">
-              <Badge variant={room.bookings.length === 0 ? 'success' : 'gold'}>
-                {room.bookings.length === 0 ? 'Available' : `${room.bookings.length} booking(s)`}
+              <Badge variant={bookingsCount === 0 ? 'success' : 'gold'}>
+                {bookingsCount === 0 ? 'Available' : `${bookingsCount} booking(s)`}
               </Badge>
             </div>
           </div>

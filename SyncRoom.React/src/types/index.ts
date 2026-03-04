@@ -25,7 +25,7 @@ export interface RoomSummary {
 }
 
 export interface RoomDetails extends Room {
-    bookings: string[]; // Booking IDs
+    bookingId?: string[]; // Booking IDs
 }
 
 export interface CreateRoomDto {

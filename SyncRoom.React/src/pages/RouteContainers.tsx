@@ -6,6 +6,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { Toaster } from '@/components/ui/Toaster';
+import { useToast } from '@/hooks/useToast';
 import { AdminPage } from '@/pages/AdminPage';
 import { LoginPage } from '@/pages/LoginPage';
 import { RegisterPage } from '@/pages/RegisterPage';
@@ -35,7 +37,7 @@ export function LoginRoute() {
     dispatch(login(data))
       .unwrap()
       .then(() => navigate('/rooms'))
-      .catch(() => {/* error is already stored in state.auth.error */});
+      .catch(() => {});
   };
 
   return <LoginPage onSubmit={handleLogin} loading={loading} error={error} />;
@@ -57,7 +59,7 @@ export function RegisterRoute() {
     dispatch(register(data))
       .unwrap()
       .then(() => navigate('/login'))
-      .catch(() => {/* error is already stored in state.auth.error */});
+      .catch(() => {});
   };
 
   return <RegisterPage onSubmit={handleRegister} loading={loading} error={error} />;
@@ -83,6 +85,7 @@ export function RoomDetailRoute() {
   const dispatch = useAppDispatch();
   const { selectedRoom, loading, error } = useAppSelector((state) => state.rooms);
   const [bookingLoading, setBookingLoading] = useState(false);
+  const { toasts, show, dismiss } = useToast();
 
   useEffect(() => {
     if (id) dispatch(fetchRoomById(id));
@@ -93,17 +96,28 @@ export function RoomDetailRoute() {
     setBookingLoading(true);
     dispatch(createBooking(data))
       .unwrap()
+      .then(() => {
+        show('Booking created successfully!', 'success');
+        // Re-fetch room so booking count updates
+        if (id) dispatch(fetchRoomById(id));
+      })
+      .catch((err: string) => {
+        show(err ?? 'Failed to create booking', 'error');
+      })
       .finally(() => setBookingLoading(false));
   };
 
   return (
-    <RoomDetailPage
-      room={selectedRoom}
-      loading={loading}
-      error={error}
-      bookingLoading={bookingLoading}
-      onBook={handleBook}
-    />
+    <>
+      <Toaster toasts={toasts} dismiss={dismiss} />
+      <RoomDetailPage
+        room={selectedRoom}
+        loading={loading}
+        error={error}
+        bookingLoading={bookingLoading}
+        onBook={handleBook}
+      />
+    </>
   );
 }
 
@@ -140,4 +154,4 @@ export function AdminRoute() {
       getRoomDetails={getRoomDetails}
     />
   );
-}
+} 

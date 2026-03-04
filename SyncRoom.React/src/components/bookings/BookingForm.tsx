@@ -1,10 +1,10 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { CalendarDays, Clock } from 'lucide-react';
-import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
 import type { CreateBookingDto } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CalendarDays, Clock } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 const schema = z.object({
   title: z.string().min(2, 'Title must be at least 2 characters'),
@@ -33,13 +33,13 @@ export function BookingForm({ roomId, onSubmit, loading }: BookingFormProps) {
   const now = new Date();
   const later = new Date(now.getTime() + 60 * 60 * 1000);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      startTime: toDateTimeLocal(now),
-      endTime: toDateTimeLocal(later),
-    },
-  });
+const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({
+  resolver: zodResolver(schema),
+  defaultValues: {
+    startTime: toDateTimeLocal(now),
+    endTime: toDateTimeLocal(later),
+  },
+});
 
   const submit = (data: FormValues) => {
     onSubmit({
@@ -47,6 +47,14 @@ export function BookingForm({ roomId, onSubmit, loading }: BookingFormProps) {
       roomId,
       startTime: new Date(data.startTime).toISOString(),
       endTime: new Date(data.endTime).toISOString(),
+    });
+
+    const freshNow = new Date();
+    reset({
+      title: '',
+      description: '',
+      startTime: toDateTimeLocal(freshNow),
+      endTime: toDateTimeLocal(new Date(freshNow.getTime() + 60 * 60 * 1000)),
     });
   };
 

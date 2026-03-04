@@ -43,8 +43,8 @@ namespace SyncRoom.Api.Controllers
                 r.Name,
                 r.Capacity,
                 r.Amenities,
-                r.Bookings.Select(b => b.Id).ToList(),
-                r.Images.Select(i => i.Url).ToList()
+                r.Bookings != null ? r.Bookings.Select(b => b.Id).ToList() : new List<Guid>(),
+                r.Images != null ? r.Images.Select(i => i.Url).ToList() : new List<string>()
             )).SingleOrDefaultAsync();
 
             if (roomDetails is null) return NotFound("Room does not exist");
