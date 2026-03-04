@@ -1,4 +1,3 @@
-import { useAuth } from '@/context/AuthContext';
 import { useAppSelector } from '@/store';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 

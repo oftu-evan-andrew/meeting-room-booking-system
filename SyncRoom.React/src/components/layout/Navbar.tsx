@@ -1,5 +1,4 @@
 import { Avatar } from '@/components/ui/Avatar';
-import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { logout } from '@/store/slices/authSlice';
@@ -7,8 +6,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { motion } from 'framer-motion';
 import { Building2, ChevronDown, LogOut, Shield } from 'lucide-react';
 import { useMemo } from 'react';
-import { Link, replace, useLocation, useNavigate } from 'react-router-dom';
-import { LoadingScreen } from '../ui/LoadingScreen';
+import { Link, useLocation } from 'react-router-dom';
 
 export function Navbar() {
   const { user, initialLoading } = useAppSelector((state) => state.auth);
