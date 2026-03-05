@@ -17,6 +17,17 @@ public class SyncRoomContext(DbContextOptions<SyncRoomContext> options) : Identi
     {   
         base.OnModelCreating(modelBuilder);
 
+        var superAdminRoleId = Guid.Parse("5807cd12-36ff-45c7-99ee-89cef9e7657c");
+
+        modelBuilder.Entity<IdentityNotMappedException<Guid>>().HasData(
+            new IdentityRole<Guid>
+            {
+                Id = superAdminRoleId,
+                Name = "SuperAdmin",
+                NormalizedName = "SUPERADMIN"
+            }
+        );
+
         modelBuilder.Entity<Room>().HasQueryFilter(r => !r.IsDeleted);
 
         modelBuilder.Entity<Booking>(entity => {
