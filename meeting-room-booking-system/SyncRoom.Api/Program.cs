@@ -18,10 +18,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins(builder.Configuration["AllowedOrigins"]!)
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials();
+        policy.WithOrigins(
+            "http://localhost:5173",
+            "https://meeting-room-booking-system-sable.vercel.app"
+        )
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials();
     });
 });
 
