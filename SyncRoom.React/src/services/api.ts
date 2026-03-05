@@ -3,7 +3,7 @@ import { store } from '@/store';
 import { logout } from '@/store/slices/authSlice';
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = 'http://localhost:5096/api';
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}/api`;
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
     _retry?: boolean;
