@@ -9,7 +9,10 @@ public static class DataExtensions
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<SyncRoomContext>(options => 
-            options.UseSqlServer(connectionString));
+            options.UseMySql(
+                connectionString, 
+                ServerVersion.AutoDetect(connectionString)
+            ));
     
         return services; 
     }
