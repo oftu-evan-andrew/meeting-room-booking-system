@@ -96,17 +96,16 @@ builder.Services.AddDataServices(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
+app.UseRouting(); 
+
 app.UseCors("AllowReactApp");
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
-app.UseStaticFiles();
-
 app.MapControllers();
-
-
 
 app.Run();
 
