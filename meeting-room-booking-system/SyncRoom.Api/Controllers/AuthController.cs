@@ -110,8 +110,8 @@ namespace SyncRoom.Api.Controllers
             Response.Cookies.Append("jwt_session", token, new CookieOptions
             {
                 HttpOnly = true, 
-                Secure = false, 
-                SameSite = SameSiteMode.Lax,
+                Secure = true, 
+                SameSite = SameSiteMode.None,
                 Expires = DateTime.UtcNow.AddMinutes(30)
             });
 
@@ -123,8 +123,8 @@ namespace SyncRoom.Api.Controllers
             
             Response.Cookies.Append("refresh_token" , refreshToken, new CookieOptions {
                 HttpOnly = true, 
-                Secure = false, 
-                SameSite = SameSiteMode.Lax,
+                Secure = true, 
+                SameSite = SameSiteMode.None,
                 Expires = expiryTime,
                 Path = "/"
             });
@@ -188,8 +188,8 @@ namespace SyncRoom.Api.Controllers
             Response.Cookies.Append("jwt_session", token, new CookieOptions
             {
                 HttpOnly = true,
-                Secure = false, 
-                SameSite = SameSiteMode.Lax, 
+                Secure = true, 
+                SameSite = SameSiteMode.None, 
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 Path = "/"
             });
@@ -200,8 +200,8 @@ namespace SyncRoom.Api.Controllers
             Response.Cookies.Append("refresh_token", newRefreshToken, new CookieOptions
             {
                 HttpOnly = true,
-                Secure = false, 
-                SameSite = SameSiteMode.Lax, 
+                Secure = true, 
+                SameSite = SameSiteMode.None, 
                 Expires = expiryTime
             });
             
@@ -231,7 +231,12 @@ namespace SyncRoom.Api.Controllers
             }
 
             // Always kill the cookies!
-            var cookieOptions = new CookieOptions { HttpOnly = true, Secure = true };
+            var cookieOptions = new CookieOptions {
+                 HttpOnly = true,
+                 Secure = true,
+                 SameSite = SameSiteMode.None,
+                 Path = "/"
+                };
             Response.Cookies.Delete("jwt_session", cookieOptions);
             Response.Cookies.Delete("refresh_token", cookieOptions);
 

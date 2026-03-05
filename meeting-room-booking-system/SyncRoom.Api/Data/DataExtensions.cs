@@ -12,7 +12,7 @@ public static class DataExtensions
 
         services.AddDbContext<SyncRoomContext>(options => 
             // UseMySQL is the method for the Oracle provider
-            options.UseMySQL(connectionString));
+            options.UseMySQL(connectionString!));
     
         return services; 
     }
