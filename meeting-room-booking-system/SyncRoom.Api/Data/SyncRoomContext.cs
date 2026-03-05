@@ -19,7 +19,7 @@ public class SyncRoomContext(DbContextOptions<SyncRoomContext> options) : Identi
 
         var superAdminRoleId = Guid.Parse("5807cd12-36ff-45c7-99ee-89cef9e7657c");
 
-        modelBuilder.Entity<IdentityNotMappedException<Guid>>().HasData(
+        modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(
             new IdentityRole<Guid>
             {
                 Id = superAdminRoleId,
