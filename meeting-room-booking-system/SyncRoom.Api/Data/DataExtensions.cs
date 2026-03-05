@@ -11,10 +11,8 @@ public static class DataExtensions
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         services.AddDbContext<SyncRoomContext>(options => 
-            options.UseMySql(
-                connectionString, 
-                ServerVersion.AutoDetect(connectionString)
-            ));
+            // UseMySQL is the method for the Oracle provider
+            options.UseMySQL(connectionString));
     
         return services; 
     }
