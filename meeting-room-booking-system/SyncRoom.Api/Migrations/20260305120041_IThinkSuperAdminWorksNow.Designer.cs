@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SyncRoom.Api.Data;
 
@@ -10,9 +11,11 @@ using SyncRoom.Api.Data;
 namespace SyncRoom.Api.Migrations
 {
     [DbContext(typeof(SyncRoomContext))]
-    partial class SyncRoomContextModelSnapshot : ModelSnapshot
+    [Migration("20260305120041_IThinkSuperAdminWorksNow")]
+    partial class IThinkSuperAdminWorksNow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
